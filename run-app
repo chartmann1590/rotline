@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-# Rotline launcher: the source tree when run from a checkout, the installed copy inside the Flatpak.
-set -eu
-app_dir=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-if [ -f "$app_dir/src/main.py" ]; then
-  exec python3 "$app_dir/src/main.py" "$@"
-fi
-exec python3 "/app/share/com.charleshartmann.Rotline/main.py" "$@"

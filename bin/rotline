@@ -1,0 +1,3 @@
+#!/bin/sh
+# Rotline launcher: the game's pack, run by the Godot engine that ships with it.
+exec /app/lib/rotline/godot --main-pack /app/lib/rotline/rotline.pck "$@"

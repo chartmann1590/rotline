@@ -3,7 +3,7 @@
   "runtime": "org.projectluma.Platform",
   "runtime-version": "44",
   "sdk": "org.projectluma.Sdk",
-  "command": "run-app",
+  "command": "rotline",
   "finish-args": [
     "--share=ipc",
     "--share=network",
@@ -17,20 +17,43 @@
       "name": "rotline",
       "buildsystem": "simple",
       "build-commands": [
-        "install -Dm755 run-app /app/bin/run-app",
-        "install -Dm644 src/main.py /app/share/com.charleshartmann.Rotline/main.py",
-        "install -d /app/share/com.charleshartmann.Rotline/rotline",
-        "install -Dm644 src/rotline/*.py src/rotline/*.css -t /app/share/com.charleshartmann.Rotline/rotline/",
+        "python3 -m zipfile -e godot.zip godot-dist",
+        "install -Dm755 godot-dist/Godot_v4.7.2-stable_linux.* godot",
+        "mkdir -p home && HOME=$PWD/home XDG_DATA_HOME=$PWD/home XDG_CONFIG_HOME=$PWD/home XDG_CACHE_HOME=$PWD/home ./godot --headless --path game --import",
+        "mkdir -p game/build && HOME=$PWD/home XDG_DATA_HOME=$PWD/home XDG_CONFIG_HOME=$PWD/home XDG_CACHE_HOME=$PWD/home ./godot --headless --path game --export-pack Linux $PWD/game/build/rotline.pck",
+        "test -s game/build/rotline.pck",
+        "install -Dm755 godot /app/lib/rotline/godot",
+        "install -Dm644 game/build/rotline.pck /app/lib/rotline/rotline.pck",
+        "install -Dm755 bin/rotline /app/bin/rotline",
         "install -Dm644 data/com.charleshartmann.Rotline.desktop /app/share/applications/com.charleshartmann.Rotline.desktop",
         "install -Dm644 data/com.charleshartmann.Rotline.metainfo.xml /app/share/metainfo/com.charleshartmann.Rotline.metainfo.xml",
         "install -Dm644 data/com.charleshartmann.Rotline.svg /app/share/icons/hicolor/scalable/apps/com.charleshartmann.Rotline.svg",
-        "install -Dm644 data/com.charleshartmann.Rotline-tv.svg /app/share/luma-tv/com.charleshartmann.Rotline-tv.svg"
+        "install -Dm644 data/com.charleshartmann.Rotline-tv.svg /app/share/luma-tv/com.charleshartmann.Rotline-tv.svg",
+        "install -Dm644 game/assets/fonts/OFL-BebasNeue.txt game/assets/fonts/OFL-Rubik.txt -t /app/share/licenses/com.charleshartmann.Rotline/"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/chartmann1590/rotline.git",
-          "commit": "ea03c086d30a9c0492af23dbc1dcc1b86852b4dc"
+          "commit": "PIN_ME"
+        },
+        {
+          "type": "file",
+          "only-arches": [
+            "x86_64"
+          ],
+          "dest-filename": "godot.zip",
+          "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip",
+          "sha256": "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
+        },
+        {
+          "type": "file",
+          "only-arches": [
+            "aarch64"
+          ],
+          "dest-filename": "godot.zip",
+          "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.arm64.zip",
+          "sha256": "5dd0d86405cf7e8adf79fb6377b38ba682a2846cb378ffe5364f38c01ad29b9d"
         }
       ]
     }

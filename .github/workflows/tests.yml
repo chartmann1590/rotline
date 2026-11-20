@@ -9,19 +9,25 @@ permissions:
   contents: read
 
 jobs:
-  unit:
-    name: Unit tests (Python ${{ matrix.python }})
+  game:
+    name: Game tests (Godot 4.7.2)
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        python: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
-      - run: pip install pytest
-      - run: python -m pytest -v tests/test_game.py tests/test_billing.py tests/test_promo.py tests/test_updates.py
+      - name: Get Godot 4.7.2 (checked against the official SHA-512)
+        run: |
+          curl -sSLo godot.zip https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          curl -sSLo sums.txt https://github.com/godotengine/godot/releases/download/4.7.2-stable/SHA512-SUMS.txt
+          grep " Godot_v4.7.2-stable_linux.x86_64.zip$" sums.txt | sed 's/Godot_v4.7.2-stable_linux.x86_64.zip/godot.zip/' | sha512sum -c
+          unzip -q godot.zip && mv Godot_v4.7.2-stable_linux.x86_64 godot && chmod +x godot
+      - name: Import
+        run: ./godot --headless --path game --import
+      - name: Rules, maps, saves and the bot
+        run: ROTLINE_TEST=all ./godot --headless --fixed-fps 60 --path game
+      - name: The store, against a fake license server
+        run: GODOT=$PWD/godot python3 tests/test_store.py
+      - name: The pack exports
+        run: mkdir -p game/build && ./godot --headless --path game --export-pack Linux $PWD/game/build/rotline.pck && test -s game/build/rotline.pck
 
   metadata:
     name: Desktop file and manifests

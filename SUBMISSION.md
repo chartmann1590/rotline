@@ -28,6 +28,9 @@ with `SHA256SUMS`.
    - Privacy policy: `PRIVACY.md`.
    - In-app purchases: yes. Ads: none. Sign-in: none.
    - TV: supported, with input "controller" or "remote". It plays fully with arrows and OK.
+   - Made with Godot 4.7.2. The package ships the official Godot Linux binary for its architecture, downloaded by the
+     manifest and checked by SHA-256, with the game's pack. The pack is built from the pinned commit during the
+     Flatpak build.
 4. **Age rating (OARS):**
    - Cartoon violence: moderate.
    - Fantasy violence: moderate. The enemies are unrealistic human-like zombies.
@@ -36,8 +39,9 @@ with `SHA256SUMS`.
    - Nothing else applies: no chat, no user content, no gambling and no random rewards.
 5. **Permissions** Depot will show:
    - Uses the internet: the store's prices and purchases, and update checks. Playing needs no connection.
-   - Plays audio: sound effects. Luma's list shows this as "Records audio" because `--socket=pulseaudio` is the only
-     way a Flatpak plays sound. No microphone is used.
+   - Plays audio: sound effects and music. Luma's list shows this as "Records audio" because
+     `--socket=pulseaudio` is the only way a Flatpak plays sound. No microphone is used.
+   - Graphics: `--device=dri` for OpenGL. The lights and shadows are drawn on the GPU.
 6. **Screenshots:** `screenshots/`, covering a computer, a phone and a TV.
 7. **Review.** Only Charles sends it for review.
 
@@ -54,12 +58,15 @@ with `SHA256SUMS`.
   - Chapter 1, Endless and all upgrades are free. Nothing that was free becomes paid.
 - **No advertising (2.3).** No ad SDKs, no advertising identifiers and no analytics.
 - **Controls.**
-  - Keyboard and mouse, touch with a thumb stick, and the TV keys (arrows, OK, Back) that the shell makes from a
+  - Keyboard and mouse, two touch sticks with buttons, and the TV keys (arrows, OK, Back) that the shell makes from a
     remote or a gamepad.
   - `X-Luma-TV-Presentation=tv`, so a gamepad drives it in TV posture. Without a mouse, aiming and firing are
     automatic.
-- **Keeping the screen on.** While a level is being played, Rotline asks the Inhibit portal to keep the screen awake
-  (idle only). It lets go when you leave the level.
+  - The game doesn't ask for `--device=input`. A pad works through the shell's TV keys, so nothing needs a newer
+    Flatpak.
+- **Keeping the screen on.** While a level is being played, Godot asks the system to keep the screen awake. It lets
+  go when you leave the level.
+- **Flashing light.** Downtown has lightning. It can be turned off in Settings ("Lightning flashes").
 - **Updates (1.3).** The Depot build updates through Depot. The app shows release notes from GitHub but never
   downloads anything there.
 

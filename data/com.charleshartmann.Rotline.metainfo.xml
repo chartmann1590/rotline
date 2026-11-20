@@ -10,10 +10,12 @@
       and bring down the big ones. Play it with a keyboard and mouse, a touch screen, a TV remote or a gamepad.
     </p>
     <ul>
-      <li>Twelve levels across three chapters: the suburbs at dusk, downtown at night and the harbor in the fog</li>
+      <li>Twelve levels across three chapters: the suburbs at dusk, downtown at night in the rain, and the harbor in the fog</li>
+      <li>Real-time lights and shadows: your torch, street lamps, muzzle flashes and explosions, with every wall, car and crate casting a shadow</li>
       <li>Five kinds of goal: survive, escape, defend, clear and bring down a boss</li>
       <li>Six kinds of dead, from shuffling walkers to runners, spitters, bloaters, brutes and the Tank</li>
       <li>Six weapons, from a pistol that never runs dry to a shotgun, an SMG and a rifle that goes through a crowd</li>
+      <li>A dodge roll, grenades, hordes and kill streaks</li>
       <li>Endless mode: no way out and no end, and your longest run to beat</li>
       <li>Upgrades bought with scrap you earn by playing: toughness, firepower, fire rate, speed and ammo</li>
       <li>No mouse? It aims and fires for you, so a remote, a gamepad or one thumb is all you need</li>
@@ -36,7 +38,7 @@
   <url type="vcs-browser">https://github.com/chartmann1590/rotline</url>
   <launchable type="desktop-id">com.charleshartmann.Rotline.desktop</launchable>
   <provides>
-    <binary>run-app</binary>
+    <binary>rotline</binary>
   </provides>
   <categories>
     <category>Game</category>
@@ -64,6 +66,10 @@
       <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/harbor.png</image>
     </screenshot>
     <screenshot>
+      <caption>The Tank comes through the park</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/boss.png</image>
+    </screenshot>
+    <screenshot>
       <caption>The Armory: upgrades bought with scrap you earn</caption>
       <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/armory.png</image>
     </screenshot>
@@ -72,7 +78,7 @@
       <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/store.png</image>
     </screenshot>
     <screenshot>
-      <caption>On a phone, with a thumb</caption>
+      <caption>On a phone, with two thumbs</caption>
       <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/phone.png</image>
     </screenshot>
     <screenshot>
@@ -99,7 +105,7 @@
   <releases>
     <release version="1.0.0" date="2026-11-20">
       <description>
-        <p>The first release: twelve levels in three chapters, Endless, six weapons, six kinds of dead, upgrades, five survivors, Story mode, and play by keyboard and mouse, touch, TV remote or gamepad.</p>
+        <p>The first release, made with Godot 4.7: twelve levels in three chapters with real-time lights and shadows, Endless, six weapons, grenades and a dodge roll, six kinds of dead, upgrades, five survivors, Story mode, and play by keyboard and mouse, touch, TV remote or gamepad.</p>
       </description>
     </release>
   </releases>
