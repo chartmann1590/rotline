@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.data/
+.cache/
+shots/
+build-dir/
+.flatpak-builder/
+*.flatpak

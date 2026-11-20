@@ -1,0 +1,36 @@
+name: Bug report
+description: Something doesn't work the way it should
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: level
+    attributes:
+      label: Level
+      description: Which level (like 2-3, or Endless), if it happened while playing.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where?
+      options: [Playing a level, Controls, The campaign map, Armory or upgrades, Survivors, Store or purchases, Sound, Updates, Other]
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device and controls
+      options: [Computer with keyboard and mouse, Tablet, Phone, TV with a remote, TV with a gamepad, Other]
+  - type: input
+    id: version
+    attributes:
+      label: Rotline version
+      placeholder: "1.0.0"
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots
+      description: Attach a screenshot if it shows the problem. Leave out anything private, like the email on a receipt.

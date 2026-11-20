@@ -1,0 +1,39 @@
+{
+  "id": "com.charleshartmann.Rotline",
+  "runtime": "org.projectluma.Platform",
+  "runtime-version": "44",
+  "sdk": "org.projectluma.Sdk",
+  "command": "run-app",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--socket=pulseaudio",
+    "--device=dri"
+  ],
+  "modules": [
+    {
+      "name": "rotline",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -Dm755 run-app /app/bin/run-app",
+        "install -Dm644 src/main.py /app/share/com.charleshartmann.Rotline/main.py",
+        "install -d /app/share/com.charleshartmann.Rotline/rotline",
+        "install -Dm644 src/rotline/*.py src/rotline/*.css -t /app/share/com.charleshartmann.Rotline/rotline/",
+        "install -Dm644 data/com.charleshartmann.Rotline.desktop /app/share/applications/com.charleshartmann.Rotline.desktop",
+        "install -Dm644 data/com.charleshartmann.Rotline.metainfo.xml /app/share/metainfo/com.charleshartmann.Rotline.metainfo.xml",
+        "install -Dm644 data/com.charleshartmann.Rotline.svg /app/share/icons/hicolor/scalable/apps/com.charleshartmann.Rotline.svg",
+        "install -Dm644 data/com.charleshartmann.Rotline-tv.svg /app/share/luma-tv/com.charleshartmann.Rotline-tv.svg",
+        "install -d /app/share/com.charleshartmann.Rotline && echo github > /app/share/com.charleshartmann.Rotline/channel"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/chartmann1590/rotline.git",
+          "commit": "PIN_ME"
+        }
+      ]
+    }
+  ]
+}

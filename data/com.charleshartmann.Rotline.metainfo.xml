@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.charleshartmann.Rotline</id>
+  <name>Rotline</name>
+  <summary>Top-down zombie survival in three chapters and an endless mode</summary>
+  <description>
+    <p>
+      Rotline is a top-down zombie survival game made for Luma. The power's out, the neighbours aren't themselves, and
+      the only way is through: hold out until morning, find fuel for the car, defend a generator, clear the subway
+      and bring down the big ones. Play it with a keyboard and mouse, a touch screen, a TV remote or a gamepad.
+    </p>
+    <ul>
+      <li>Twelve levels across three chapters: the suburbs at dusk, downtown at night and the harbor in the fog</li>
+      <li>Five kinds of goal: survive, escape, defend, clear and bring down a boss</li>
+      <li>Six kinds of dead, from shuffling walkers to runners, spitters, bloaters, brutes and the Tank</li>
+      <li>Six weapons, from a pistol that never runs dry to a shotgun, an SMG and a rifle that goes through a crowd</li>
+      <li>Endless mode: no way out and no end, and your longest run to beat</li>
+      <li>Upgrades bought with scrap you earn by playing: toughness, firepower, fire rate, speed and ammo</li>
+      <li>No mouse? It aims and fires for you, so a remote, a gamepad or one thumb is all you need</li>
+      <li>Story mode halves the damage you take, for anyone who'd rather see the story than fight it</li>
+    </ul>
+    <p>
+      Chapter 1, Endless and every upgrade are free, with no ads. Chapters 2 and 3, the Arsenal (flamethrower and
+      crossbow) and the Survivors (four more characters to play as) are optional one-time purchases, paid through
+      Stripe, with a Complete pack that has all four. Nothing is sold by the coin and nothing is random.
+    </p>
+  </description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="com.charleshartmann">
+    <name>Hartmann Studios</name>
+  </developer>
+  <url type="homepage">https://github.com/chartmann1590/rotline</url>
+  <url type="help">https://github.com/chartmann1590/rotline#readme</url>
+  <url type="bugtracker">https://github.com/chartmann1590/rotline/issues</url>
+  <url type="vcs-browser">https://github.com/chartmann1590/rotline</url>
+  <launchable type="desktop-id">com.charleshartmann.Rotline.desktop</launchable>
+  <provides>
+    <binary>run-app</binary>
+  </provides>
+  <categories>
+    <category>Game</category>
+    <category>ActionGame</category>
+  </categories>
+  <keywords>
+    <keyword>zombie</keyword>
+    <keyword>zombies</keyword>
+    <keyword>survival</keyword>
+    <keyword>shooter</keyword>
+    <keyword>top-down</keyword>
+    <keyword>endless</keyword>
+  </keywords>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Holding out downtown, at night</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/play.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The campaign: three chapters of four levels</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/campaign.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The flamethrower at the docks</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/harbor.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The Armory: upgrades bought with scrap you earn</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/armory.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The store: one-time unlocks, no coins</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/store.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>On a phone, with a thumb</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/phone.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>On a TV, with a remote or a gamepad</caption>
+      <image>https://raw.githubusercontent.com/chartmann1590/rotline/main/screenshots/tv.png</image>
+    </screenshot>
+  </screenshots>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <recommends>
+    <internet>offline-only</internet>
+  </recommends>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+    <control>tv-remote</control>
+    <control>gamepad</control>
+  </supports>
+  <custom>
+    <value key="org.projectluma.ApplicationContract">0.2</value>
+  </custom>
+  <releases>
+    <release version="1.0.0" date="2026-11-20">
+      <description>
+        <p>The first release: twelve levels in three chapters, Endless, six weapons, six kinds of dead, upgrades, five survivors, Story mode, and play by keyboard and mouse, touch, TV remote or gamepad.</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">moderate</content_attribute>
+    <content_attribute id="violence-fantasy">moderate</content_attribute>
+    <content_attribute id="violence-bloodshed">mild</content_attribute>
+    <content_attribute id="money-purchasing">intense</content_attribute>
+  </content_rating>
+</component>

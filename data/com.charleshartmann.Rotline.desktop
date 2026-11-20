@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Name=Rotline
+GenericName=Zombie Survival
+Comment=Hold out against the dead across three chapters, or for as long as you can last
+Exec=run-app
+Icon=com.charleshartmann.Rotline
+Terminal=false
+DBusActivatable=false
+StartupNotify=true
+Categories=Game;ActionGame;
+Keywords=zombie;zombies;survival;shooter;top-down;action;arcade;horde;endless;
+X-Purism-FormFactor=Workstation;Mobile;
+X-Luma-TV=true
+X-Luma-TV-Tile=com.charleshartmann.Rotline-tv
+X-Luma-TV-Presentation=tv
