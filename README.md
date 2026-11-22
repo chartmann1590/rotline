@@ -156,6 +156,9 @@ Rotline is headed for **Depot**, Luma's app store. Until it's listed, download t
 [latest release](https://github.com/chartmann1590/rotline/releases/latest): `x86_64` for computers and TVs,
 `aarch64` for phones and tablets.
 
+On x86_64 the game engine (Godot 4.7) needs a processor with **SSE4.2**, which most computers from 2009 on have. On an
+older one Rotline says it can't start rather than running.
+
 ## Build
 
 The Flatpak build downloads the official Godot 4.7.2 release for your architecture (checked by SHA-256). It imports
@@ -179,6 +182,8 @@ GODOT=godot python3 tests/test_store.py                          # the store, ag
 luma lint && luma test                                           # Luma's app checks
 ```
 
+- **The paid levels.** The same bot, with the Chapter 1 guns, two levels of every Armory upgrade, a sideways roll
+  when a Tank winds up and its grenades, has to win every level of Chapters 2 and 3 at least once in five tries.
 - **The bot.** It has to win every free level, with no upgrades, at least twice in three tries, so Chapter 1 stays
   fair.
 - **The store test.** It checks the price list, opening Stripe Checkout, unlocking once the payment is confirmed,

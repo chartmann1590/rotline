@@ -8,7 +8,7 @@ signal found
 
 const REPO := "chartmann1590/rotline"
 const APP_ID := "com.charleshartmann.Rotline"
-const VERSION := "1.0.0"
+const VERSION := "1.0.1"
 const EVERY := 12 * 3600
 
 var api = "https://api.github.com"

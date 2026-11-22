@@ -1,3 +1,15 @@
 #!/bin/sh
 # Rotline launcher: the game's pack, run by the Godot engine that ships with it.
+#
+# Godot 4.5 and later need SSE4.2 on x86_64 (most PCs from 2009 on). On an older processor the engine stops before it
+# can show anything, so the game would seem to do nothing. Say why instead, in a notification and on stderr.
+if [ "$(uname -m)" = "x86_64" ] && [ -r /proc/cpuinfo ] && ! grep -qw sse4_2 /proc/cpuinfo; then
+	msg="Rotline needs a processor with SSE4.2 (most computers from 2009 or later). This one doesn't have it, so the game can't start."
+	echo "rotline: $msg" >&2
+	gdbus call --session --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop \
+		--method org.freedesktop.portal.Notification.AddNotification rotline-cpu \
+		"{'title': <\"Rotline can't start on this computer\">, 'body': <\"$msg\">, 'priority': <'high'>}" \
+		>/dev/null 2>&1
+	exit 1
+fi
 exec /app/lib/rotline/godot --main-pack /app/lib/rotline/rotline.pck "$@"

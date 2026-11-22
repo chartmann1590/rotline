@@ -33,6 +33,8 @@ var spawned = 0
 var fuel = 0
 var fuel_needed = 0
 var bosses_left = 0
+var bosses_waiting = 0       # Tanks still to come: they arrive one at a time, the next a few seconds after one falls
+var _boss_t = 0.0
 var gen_pos = Vector2(-9999, -9999)
 var gen_hp = 0.0
 var gen_max = 1.0
@@ -121,9 +123,9 @@ func setup(key: String, opts := {}) -> void:
 				if a != 0 or b != 0:
 					around.append(Vector2i(gi + a, gj + b))
 		gen_field = Data.bfs(rows, around)
-	if not demo:
-		for i in lv.bosses:
-			_spawn("tank", true)
+	if not demo and lv.bosses > 0:
+		_spawn("tank", true)
+		bosses_waiting = lv.bosses - 1
 
 
 # ------------------------------------------------------------------------------------------------ building the map
@@ -576,6 +578,11 @@ func _physics_process(delta: float) -> void:
 	var inp: Dictionary = input_source.call() if input_source.is_valid() else {"move": Vector2.ZERO, "aim": null,
 		"fire": false, "auto_fire": true, "dodge": false, "grenade": false, "switch": 0}
 	player.step(delta, inp)
+	if bosses_waiting > 0 and _boss_t > 0:
+		_boss_t -= delta
+		if _boss_t <= 0:
+			bosses_waiting -= 1
+			_spawn("tank", true)
 	_spawning(delta)
 	_projectiles(delta)
 	_pickups()
@@ -655,7 +662,8 @@ func _rate() -> float:
 func _spawning(delta: float) -> void:
 	if lv.goal == "clear" and spawned >= lv.target:
 		return
-	_spawn_acc += _rate() * delta
+	# While a Tank is up the horde thins out, so the fight is about the Tank, not about being buried while dodging it.
+	_spawn_acc += _rate() * delta * (0.6 if lv.goal == "boss" and lv.chapter >= 2 and boss() != null else 1.0)
 	while _spawn_acc >= 1.0:
 		_spawn_acc -= 1.0
 		if zombies.size() >= lv.max_alive:
@@ -715,7 +723,7 @@ func _spawn(kind: String, boss := false, anywhere := false) -> void:
 	if lv.endless:
 		hp_mult = 1.0 + min(1.5, time / 300.0)
 	elif boss:
-		hp_mult = 0.7 + 0.4 * (lv.chapter - 1)
+		hp_mult = 0.7 + 0.15 * (lv.chapter - 1)
 	var z = Zombie.new()
 	z.setup(self, kind, at, hp_mult, boss)
 	actors.add_child(z)
@@ -751,6 +759,8 @@ func kill(z: Zombie) -> void:
 		_corpse(z)
 	if z.boss:
 		bosses_left -= 1
+		if bosses_waiting > 0:
+			_boss_t = 4.0
 		_hitstop(0.12)
 		add_shake(0.9)
 		for i in 3:

@@ -103,6 +103,12 @@
     <value key="org.projectluma.ApplicationContract">0.2</value>
   </custom>
   <releases>
+    <release version="1.0.1" date="2026-11-21">
+      <description>
+        <p>Fairer Tank fights: in Rooftop Signal and The Ferry the Tanks now come one at a time, a few seconds apart, they're a little less tough in later chapters, and the horde thins out while one is up. The Docks and The Ferry ease off slightly too, and every level of Chapters 2 and 3 is now checked by a bot before release.</p>
+        <p>On a computer whose processor is too old for the game engine (no SSE4.2), Rotline now says so instead of quietly not starting.</p>
+      </description>
+    </release>
     <release version="1.0.0" date="2026-11-20">
       <description>
         <p>The first release, made with Godot 4.7: twelve levels in three chapters with real-time lights and shadows, Endless, six weapons, grenades and a dodge roll, six kinds of dead, upgrades, five survivors, Story mode, and play by keyboard and mouse, touch, TV remote or gamepad.</p>

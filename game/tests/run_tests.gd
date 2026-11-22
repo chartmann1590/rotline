@@ -23,6 +23,8 @@ func run(m) -> void:
 	if which in ["all", "sim"]:
 		await _atest("rules_in_a_real_world", t_rules)
 		await _atest("the_first_chapter_can_be_won", t_fair)
+	if which in ["all", "chapters"]:
+		await _atest("every_paid_level_can_be_won", t_paid_levels)
 	if which == "store":
 		await _atest("store_against_fake_server", t_store)
 	print("%d passed, %d failed" % [passed, failed])
@@ -347,6 +349,61 @@ func t_fair():
 		if wins < 2:
 			return "%s won %d of 3" % [key, wins]
 	return null
+
+
+func _bot_skilled(w: World, cache: Dictionary) -> Dictionary:
+	# _bot plus the two things a player does against the Tank: roll sideways out of its windup/charge, and throw
+	# grenades at it.
+	var inp = _bot(w, cache)
+	var p = w.player
+	for z in w.zombies:
+		if z.kind != "tank":
+			continue
+		var dv: Vector2 = z.global_position - p.global_position
+		if z.state in ["windup", "charge"] and dv.length() < 7.0 * Data.TILE:
+			inp["move"] = dv.orthogonal().normalized()
+			inp["dodge"] = true
+		elif dv.length() < 6.0 * Data.TILE and dv.length() > 2.5 * Data.TILE and p.grenades > 0:
+			inp["grenade"] = true
+	return inp
+
+
+func t_paid_levels():
+	# A bot with the Chapter 1 guns and two levels of every Armory upgrade (450 scrap: Chapter 1 plus a replay or two)
+	# plays Chapters 2 and 3. Every level, each Tank fight included, must be won at least once in 5 tries. The bot only
+	# kites, rolls sideways when a Tank winds up and throws its grenades; a player does far better. Before 1.0.1 the
+	# Tanks came all at once and 2-4 and 3-4 could not be won even with every upgrade bought.
+	var guns = ["pistol", "shotgun", "smg", "rifle"]
+	var bad = []
+	var only = OS.get_environment("ROTLINE_LEVELS")
+	for key in (only.split(",") if only != "" else ["2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"]):
+		var wins = 0
+		for s in 5:
+			var w = World.new()
+			main.holder.add_child(w)
+			var u = int(OS.get_environment("ROTLINE_UPG")) if OS.get_environment("ROTLINE_UPG") != "" else 2
+			var g = OS.get_environment("ROTLINE_GUNS").split(",") if OS.get_environment("ROTLINE_GUNS") != "" else guns
+			w.setup(key, {"weapons": g, "seed": s + 1, "upgrades": {"health": u, "damage": u, "rate": u, "speed": u, "ammo": u}})
+			var cache = {}
+			w.input_source = func(): return _bot_skilled(w, cache)
+			var frames = 0
+			while w.state == "play" and w.time < 420 and frames < 420 * 60:
+				await get_tree().physics_frame
+				frames += 1
+			if w.state == "won":
+				wins += 1
+			var tanks = []
+			for z in w.zombies:
+				if z.kind == "tank":
+					tanks.append(int(z.hp))
+			print("     %s try %d: %s at %.0f s, %d down, %.0f hp, spawned %d, tanks left %s" % [key, s + 1, w.state, w.time, w.kills, w.player.hp, w.spawned, tanks])
+			w.queue_free()
+			await get_tree().process_frame
+			if wins > 0:
+				break
+		if wins < 1:
+			bad.append(key)
+	return null if bad.is_empty() else "won 0 of 5: %s" % ", ".join(bad)
 
 
 # ------------------------------------------------------------------------------------------------ the store

@@ -3,7 +3,7 @@ schema_version = "0.2"
 [application]
 id = "com.charleshartmann.Rotline"
 name = "Rotline"
-version = "1.0.0"
+version = "1.0.1"
 entrypoint = "bin/rotline"
 
 [platform]
